@@ -41,7 +41,17 @@
       margin: 0 auto 8px;
       cursor: pointer;
     }
-
+    
+.icon-img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border: 2px solid #000; /* 黒の枠線 */
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto 8px;
+}
+    
     .name {
       font-weight: bold;
     }
@@ -74,7 +84,7 @@
 
   <div class="character-grid">
     <div class="character" onclick="showDetail('gaku')">
-      <div class="icon">◽️</div>
+      <div class="icon"><img src="bon.png" alt="天ケ谷 楽" class="icon-img"></div>
       <div class="name">
         <span class="furigana">あまがや　がく</span>
         天ケ谷 楽
