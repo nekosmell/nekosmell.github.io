@@ -2,130 +2,143 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ボンボン★マネジメント｜キャラ紹介</title>
+  <title>ボンボン★マネジメント | キャラ紹介</title>
   <style>
     body {
       background-color: #e0ede5;
       font-family: sans-serif;
       line-height: 1.6;
       padding: 20px;
+    }
+
+    h1 {
       text-align: center;
     }
-    .name-block {
-  text-align: center;
-  margin-bottom: 10px;
-}
 
-.furigana {
-  font-size: 0.7em;
-  color: #555;
-  margin-bottom: 2px;
-}
-
-.kanji-name {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 10px;
-      margin-bottom: 30px;
+    .character-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin: 30px auto;
+      max-width: 800px;
     }
 
-    .charabox {
-      background-color: #cfe8dc;
-      border: 2px solid #99b9ad;
-      padding: 20px;
+    .character {
+      text-align: center;
+    }
+
+    .icon {
+      font-size: 48px;
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      border: 2px solid #999;
       border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
-    .charabox:hover {
-      background-color: #b0d4c5;
-    }
-
-    .charaname {
+    .name {
       font-weight: bold;
     }
 
-    .details {
-      display: none;
-      background-color: #ffffff;
-      border: 2px solid #99b9ad;
-      padding: 20px;
-      border-radius: 8px;
+    .furigana {
+      font-size: 0.6em;
+      color: #666;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .character-detail {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 30px auto;
       max-width: 500px;
-      margin: 0 auto 20px auto;
-      text-align: left;
+      display: none;
+    }
+
+    .character-detail.active {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-  <h1>ボンボン★マネジメント｜キャラ紹介</h1>
-  <p>※アイコンをタップすると詳細が表示されます</p>
+  <h1>ボンボン★マネジメント | キャラ紹介</h1>
+  <p style="text-align:center;">※アイコンをタップすると詳細が表示されます</p>
 
-  <div class="grid">
-    <div class="charabox" onclick="showDetails('gaku')">
-      <div class="name-block">
-  <div class="furigana">あまがや　がく</div>
-  <div class="kanji-name">天ケ谷 楽</div>
+  <div class="character-grid">
+    <div class="character" onclick="showDetail('gaku')">
+      <div class="icon">◽️</div>
+      <div class="name">
+        <span class="furigana">あまがや　がく</span>
+        天ケ谷 楽
+      </div>
     </div>
-    <div class="charabox" onclick="showDetails('daichi')">
-      <div class="name-block">
-  <div class="furigana">あらた　だいち</div>
-  <div class="kanji-name">新　大地</div>
-    <div class="charabox" onclick="showDetails('fuuma')">
-      <div class="name-block">
-  <div class="furigana">こさかい　ふうま</div>
-  <div class="kanji-name">小堺　風馬</div>
-</div>
-    <div class="charabox" onclick="showDetails('kousei')">
-     <div class="name-block">
-  <div class="furigana">あまがや　こうせい</div>
-  <div class="kanji-name">天ケ谷 煌世</div>
-</div>
+
+    <div class="character" onclick="showDetail('daichi')">
+      <div class="icon">◽️</div>
+      <div class="name">
+        <span class="furigana">あらた　だいち</span>
+        新　大地
+      </div>
+    </div>
+
+    <div class="character" onclick="showDetail('fuuma')">
+      <div class="icon">◽️</div>
+      <div class="name">
+        <span class="furigana">こさかい　ふうま</span>
+        小堺　風馬
+      </div>
+    </div>
+
+    <div class="character" onclick="showDetail('kousei')">
+      <div class="icon">◽️</div>
+      <div class="name">
+        <span class="furigana">あまがや　こうせい</span>
+        天ケ谷　煌世
+      </div>
+    </div>
   </div>
 
-  <!-- 詳細表示エリア -->
-  <div id="gaku" class="details">
-    <h2>天ケ谷 楽</h2>
-    <p><strong>身長：</strong>163cm</p>
-    <p>在宅ITエンジニア。</p>
+  <!-- 詳細表示欄 -->
+  <div id="gaku" class="character-detail active">
+    <strong>天ケ谷 楽</strong><br>
+    <b>身長：</b>163cm<br>
+    在宅ITエンジニア。
   </div>
 
-  <div id="daichi" class="details">
-    <h2>新 大地</h2>
-    <p><strong>身長：</strong>175cm</p>
-    <p>楽のマネージャー。面倒見がよく料理も得意。</p>
+  <div id="daichi" class="character-detail">
+    <strong>新 大地</strong><br>
+    <b>身長：</b>175cm<br>
+    楽のマネージャー。家事得意。
   </div>
 
-  <div id="fuuma" class="details">
-    <h2>小堺 風馬</h2>
-    <p><strong>身長：</strong>173cm</p>
-    <p>楽の税理士</p>
+  <div id="fuuma" class="character-detail">
+    <strong>小堺 風馬</strong><br>
+    <b>身長：</b>173cm<br>
+    無表情な税理士。楽の親友。
   </div>
 
-  <div id="kousei" class="details">
-    <h2>天ケ谷 煌世</h2>
-    <p><strong>身長：</strong>179cm</p>
-    <p>楽の実兄</p>
+  <div id="kousei" class="character-detail">
+    <strong>天ケ谷 煌世</strong><br>
+    <b>身長：</b>179cm<br>
+    楽の兄。
   </div>
 
   <script>
-    function showDetails(id) {
-      // すべての詳細を非表示
-      const all = document.querySelectorAll('.details');
-      all.forEach(el => el.style.display = 'none');
+    function showDetail(id) {
+      const details = document.querySelectorAll('.character-detail');
+      details.forEach(d => d.classList.remove('active'));
 
-      // 選ばれたキャラの詳細だけ表示
-      const selected = document.getElementById(id);
-      if (selected) {
-        selected.style.display = 'block';
-        selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const target = document.getElementById(id);
+      if (target) {
+        target.classList.add('active');
       }
     }
   </script>
