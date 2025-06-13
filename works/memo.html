@@ -42,6 +42,20 @@
   <button onclick="submitPost()">投稿！</button>
 </div>
 
+<!-- ログイン用フォーム -->
+<div id="login-section">
+  <h3>ログインして投稿</h3>
+  <input type="email" id="email" placeholder="メールアドレス"><br>
+  <input type="password" id="password" placeholder="パスワード"><br>
+  <button onclick="login()">ログイン</button>
+</div>
+
+<!-- ログアウト用ボタン -->
+<div id="logout-section" style="display:none;">
+  <p>ログイン中</p>
+  <button onclick="logout()">ログアウト</button>
+</div>
+  
 <hr>
 
 <div id="posts"></div>
@@ -51,6 +65,63 @@
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    serverTimestamp,
+    query,
+    orderBy,
+    onSnapshot
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    // ★ここにあなたの Firebase 設定をコピペ！
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  const loginSection = document.getElementById("login-section");
+  const logoutSection = document.getElementById("logout-section");
+
+  function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => alert("ログイン成功！"))
+      .catch(error => alert("ログイン失敗: " + error.message));
+  }
+
+  function logout() {
+    signOut(auth);
+  }
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      loginSection.style.display = "none";
+      logoutSection.style.display = "block";
+      document.getElementById("post-form").style.display = "block";
+    } else {
+      loginSection.style.display = "block";
+      logoutSection.style.display = "none";
+      document.getElementById("post-form").style.display = "none";
+    }
+  });
+
+  // つぶやき投稿・表示の処理（略）もここに入れる
+</script>
+  
 <script>
   // Firebaseの設定（自分のプロジェクト用に変更してね！）
   const firebaseConfig = {
