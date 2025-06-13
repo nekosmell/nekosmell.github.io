@@ -1,157 +1,122 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>作者のつぶやき帳</title>
+  <meta charset="UTF-8" />
+  <title>作者のつぶやきページ</title>
   <style>
     body {
       font-family: sans-serif;
-      background: #f4f4f4;
+      background: #f9f9f9;
       padding: 20px;
       max-width: 700px;
       margin: auto;
     }
-    h1 { text-align: center; }
-
     textarea {
       width: 100%;
       height: 80px;
-      margin-bottom: 10px;
     }
-
     input[type="text"] {
       width: 100%;
-      padding: 5px;
-      margin-bottom: 10px;
     }
-
-    button {
-      padding: 8px 16px;
-      background: #6aa;
-      color: white;
-      border: none;
-      cursor: pointer;
-    }
-
     .post {
       background: #fff;
+      border: 1px solid #ccc;
       padding: 10px;
-      margin: 10px 0;
-      border-left: 4px solid #6aa;
-      position: relative;
+      margin: 15px 0;
     }
-
-    .tag {
-      color: #337;
+    .tags {
+      color: #007b7b;
       font-size: 0.9em;
-      margin-right: 8px;
-    }
-
-    .filter-tags {
-      margin-top: 20px;
-    }
-
-    .filter-tags button {
-      background: #ccc;
-      margin: 3px;
-      border: none;
-      padding: 5px 10px;
-      cursor: pointer;
-    }
-
-    .delete {
-      position: absolute;
-      right: 10px;
-      top: 10px;
-      cursor: pointer;
-      color: red;
     }
   </style>
 </head>
 <body>
 
-<h1>作者のつぶやき帳</h1>
+<h1>✍️ 作者のつぶやき</h1>
 
-<textarea id="postContent" placeholder="ここに呟くよ（#ハッシュタグも付けてね）"></textarea>
-<button onclick="addPost()">投稿</button>
+<div id="authStatus">ログイン状態を確認中...</div>
 
-<div class="filter-tags" id="filterTags"></div>
+<div id="postForm" style="display:none;">
+  <textarea id="content" placeholder="つぶやきを書くよ..."></textarea>
+  <input type="text" id="tags" placeholder="#ハッシュタグ をスペースで区切ってね（例: #猫少女 #裏話）" />
+  <button onclick="submitPost()">投稿！</button>
+</div>
+
 <hr>
-<div id="postList"></div>
+
+<div id="posts"></div>
+
+<!-- Firebase SDK（必要なやつだけ） -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 
 <script>
-  let posts = JSON.parse(localStorage.getItem('posts') || '[]');
-  let currentFilter = null;
+  // Firebaseの設定（自分のプロジェクト用に変更してね！）
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "XXXXXX",
+    appId: "YOUR_APP_ID"
+  };
 
-  function extractTags(text) {
-    return text.match(/#\S+/g) || [];
-  }
+  // 初期化
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+  const auth = firebase.auth();
 
-  function renderPosts() {
-    const container = document.getElementById('postList');
-    container.innerHTML = '';
-    posts.slice().reverse().forEach((post, index) => {
-      if (currentFilter && !post.text.includes(currentFilter)) return;
+  // 匿名ログイン（投稿制限はルールでかけてある）
+  auth.signInAnonymously().catch(console.error);
 
-      const div = document.createElement('div');
-      div.className = 'post';
-      div.innerHTML = `
-        <div class="delete" onclick="deletePost(${posts.length - 1 - index})">×</div>
-        <p>${post.text.replace(/(#\S+)/g, '<span class="tag">$1</span>')}</p>
-        <time>${post.time}</time>
-      `;
-      container.appendChild(div);
-    });
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      document.getElementById('authStatus').textContent = 'ログイン済み（投稿できます）';
+      document.getElementById('postForm').style.display = 'block';
+    } else {
+      document.getElementById('authStatus').textContent = 'ログインできませんでした';
+    }
+  });
 
-    renderTagFilters();
-  }
+  // 投稿処理
+  function submitPost() {
+    const content = document.getElementById('content').value.trim();
+    const tagsRaw = document.getElementById('tags').value.trim();
+    const tags = tagsRaw.split(/\s+/).filter(tag => tag);
 
-  function addPost() {
-    const input = document.getElementById('postContent');
-    const text = input.value.trim();
-    if (!text) return;
+    if (!content) {
+      alert("つぶやき内容を入力してね！");
+      return;
+    }
 
-    posts.push({ text, time: new Date().toLocaleString() });
-    localStorage.setItem('posts', JSON.stringify(posts));
-    input.value = '';
-    renderPosts();
-  }
-
-  function deletePost(index) {
-    posts.splice(index, 1);
-    localStorage.setItem('posts', JSON.stringify(posts));
-    renderPosts();
-  }
-
-  function renderTagFilters() {
-    const filterContainer = document.getElementById('filterTags');
-    const allTags = new Set();
-    posts.forEach(post => {
-      extractTags(post.text).forEach(tag => allTags.add(tag));
-    });
-
-    filterContainer.innerHTML = `<strong>タグで絞り込み：</strong>`;
-
-    const clearBtn = document.createElement('button');
-    clearBtn.textContent = 'すべて表示';
-    clearBtn.onclick = () => {
-      currentFilter = null;
-      renderPosts();
-    };
-    filterContainer.appendChild(clearBtn);
-
-    [...allTags].sort().forEach(tag => {
-      const btn = document.createElement('button');
-      btn.textContent = tag;
-      btn.onclick = () => {
-        currentFilter = tag;
-        renderPosts();
-      };
-      filterContainer.appendChild(btn);
+    db.collection('posts').add({
+      content: content,
+      tags: tags,
+      timestamp: new Date()
+    }).then(() => {
+      document.getElementById('content').value = '';
+      document.getElementById('tags').value = '';
     });
   }
 
-  renderPosts();
+  // 投稿一覧の表示
+  db.collection('posts')
+    .orderBy('timestamp', 'desc')
+    .onSnapshot(snapshot => {
+      const postsDiv = document.getElementById('posts');
+      postsDiv.innerHTML = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const postEl = document.createElement('div');
+        postEl.className = 'post';
+        postEl.innerHTML = `
+          <div>${data.content}</div>
+          <div class="tags">${data.tags.map(tag => tag).join(' ')}</div>
+        `;
+        postsDiv.appendChild(postEl);
+      });
+    });
 </script>
 
 </body>
