@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>作者のつぶやき帳</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f4f4f4;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 { text-align: center; }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 5px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background: #6aa;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .post {
+      background: #fff;
+      padding: 10px;
+      margin: 10px 0;
+      border-left: 4px solid #6aa;
+      position: relative;
+    }
+
+    .tag {
+      color: #337;
+      font-size: 0.9em;
+      margin-right: 8px;
+    }
+
+    .filter-tags {
+      margin-top: 20px;
+    }
+
+    .filter-tags button {
+      background: #ccc;
+      margin: 3px;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .delete {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      cursor: pointer;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<h1>作者のつぶやき帳</h1>
+
+<textarea id="postContent" placeholder="ここに呟くよ（#ハッシュタグも付けてね）"></textarea>
+<button onclick="addPost()">投稿</button>
+
+<div class="filter-tags" id="filterTags"></div>
+<hr>
+<div id="postList"></div>
+
+<script>
+  let posts = JSON.parse(localStorage.getItem('posts') || '[]');
+  let currentFilter = null;
+
+  function extractTags(text) {
+    return text.match(/#\S+/g) || [];
+  }
+
+  function renderPosts() {
+    const container = document.getElementById('postList');
+    container.innerHTML = '';
+    posts.slice().reverse().forEach((post, index) => {
+      if (currentFilter && !post.text.includes(currentFilter)) return;
+
+      const div = document.createElement('div');
+      div.className = 'post';
+      div.innerHTML = `
+        <div class="delete" onclick="deletePost(${posts.length - 1 - index})">×</div>
+        <p>${post.text.replace(/(#\S+)/g, '<span class="tag">$1</span>')}</p>
+        <time>${post.time}</time>
+      `;
+      container.appendChild(div);
+    });
+
+    renderTagFilters();
+  }
+
+  function addPost() {
+    const input = document.getElementById('postContent');
+    const text = input.value.trim();
+    if (!text) return;
+
+    posts.push({ text, time: new Date().toLocaleString() });
+    localStorage.setItem('posts', JSON.stringify(posts));
+    input.value = '';
+    renderPosts();
+  }
+
+  function deletePost(index) {
+    posts.splice(index, 1);
+    localStorage.setItem('posts', JSON.stringify(posts));
+    renderPosts();
+  }
+
+  function renderTagFilters() {
+    const filterContainer = document.getElementById('filterTags');
+    const allTags = new Set();
+    posts.forEach(post => {
+      extractTags(post.text).forEach(tag => allTags.add(tag));
+    });
+
+    filterContainer.innerHTML = `<strong>タグで絞り込み：</strong>`;
+
+    const clearBtn = document.createElement('button');
+    clearBtn.textContent = 'すべて表示';
+    clearBtn.onclick = () => {
+      currentFilter = null;
+      renderPosts();
+    };
+    filterContainer.appendChild(clearBtn);
+
+    [...allTags].sort().forEach(tag => {
+      const btn = document.createElement('button');
+      btn.textContent = tag;
+      btn.onclick = () => {
+        currentFilter = tag;
+        renderPosts();
+      };
+      filterContainer.appendChild(btn);
+    });
+  }
+
+  renderPosts();
+</script>
+
+</body>
+</html>
