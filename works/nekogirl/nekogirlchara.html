@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>猫少女と動物性愛者の話| キャラ紹介</title>
+  <style>
+    body {
+      background-color: #f0f5f2;
+      font-family: sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .section-title {
+      margin-top: 40px;
+      font-size: 1.4em;
+      border-bottom: 2px solid #bbb;
+      padding-bottom: 5px;
+    }
+
+    .character-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 20px auto;
+      max-width: 900px;
+    }
+
+    .character {
+      text-align: center;
+      width: 120px;
+      cursor: pointer;
+    }
+
+    .icon {
+      font-size: 48px;
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      border: 2px solid #999;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+    }
+
+    .name {
+      font-weight: bold;
+    }
+
+    .furigana {
+      font-size: 0.6em;
+      color: #666;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .character-detail {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 500px;
+      display: none;
+    }
+
+    .character-detail.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>猫少女と動物性愛者の話| キャラ紹介</h1>
+  <p style="text-align:center;">※アイコンをタップすると詳細が表示されます（ネタバレあり）</p>
+
+  <h2 class="section-title">〜メインキャラ〜</h2>
+  <div class="character-grid">
+    <div class="character" onclick="showDetail('tamaki')">
+      <div class="icon">🐶</div>
+      <div class="name"><span class="furigana">たかもり　たまき</span>鷹守 環</div>
+    </div>
+    <div class="character" onclick="showDetail('ino')">
+      <div class="icon">🐱</div>
+      <div class="name"> <span class="furigana">こんじょう　-  </span>今条 いの</div>
+    </div>
+    <div class="character" onclick="showDetail('haru')">
+      <div class="icon">☘️</div>
+      <div class="name"><span class="furigana">ちとせ　はる</span>千歳 陽</div>
+    </div>
+    <div class="character" onclick="showDetail('shou')">
+      <div class="icon">📕</div>
+      <div class="name"><span class="furigana">つづやま　しょう</span>廿山 咲</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">〜サブキャラ〜</h2>
+  <div class="character-grid">
+    <div class="character" onclick="showDetail('aki')">
+      <div class="icon">🍳</div>
+      <div class="name"><span class="furigana">ちとせ　あき</span>千歳 光</div>
+    </div>
+    <div class="character" onclick="showDetail('azusa')">
+      <div class="icon">🃏</div>
+      <div class="name"> <span class="furigana">そがめ　あずさ</span>十亀 梓</div>
+    </div>
+    <div class="character" onclick="showDetail('azumi')">
+      <div class="icon">🌻</div>
+      <div class="name"><span class="furigana">そがめ　-  </span>十亀 あずさ</div>
+    </div>
+    <div class="character" onclick="showDetail('kai')">
+      <div class="icon">⭐️</div>
+      <div class="name"><span class="furigana">うみほし　かい</span>海星 海</div>
+    </div>
+
+  <h2 class="section-title">〜サブサブキャラ〜</h2>
+  <div class="character-grid">
+    <div class="character" onclick="showDetail('hyouta')">
+      <div class="icon">🧊</div>
+      <div class="name"><span class="furigana">にのみや　ひょうた</span>二宮 氷太</div>
+    </div>
+    <div class="character" onclick="showDetail('kasumi')">
+      <div class="icon">🐷</div>
+      <div class="name"><span class="furigana">うりはり　かすみ</span>六月一日 霞</div>
+    </div>
+    <div class="character" onclick="showDetail('komamoto')">
+      <div class="icon">👓</div>
+      <div class="name"><span class="furigana">こまもと</span>狛本</div>
+    </div>
+    <div class="character" onclick="showDetail('onikuma')">
+      <div class="icon">🐻</div>
+      <div class="name"><span class="furigana">おにくま</span>鬼熊</div>
+    </div>
+    <div class="character" onclick="showDetail('hamuzirou')">
+      <div class="icon">🐹</div>
+      <div class="name"><span class="furigana">はむじろう</span>ハム次郎</div>
+    </div>
+    <div class="character" onclick="showDetail('saotome')">
+      <div class="icon">🌏</div>
+      <div class="name"><span class="furigana">さおとめ</span>五月女</div>
+    </div>
+  </div>
+
+  <!-- 詳細表示（仮） -->
+  <div id="tamaki" class="character-detail active">
+    <strong>鷹守 環（たかもり たまき）</strong><br>
+    <b>身長：</b>171cm<br>
+    <b>誕生日：</b>10月4日<br>
+    動物と結婚したい系男子。高校生。いのが猫に変身できることを知り、求婚する。数学が苦手。獣医志望。祖父が獣医をしていた動物園で飼育バイト中。
+  </div>
+
+  <div id="ino" class="character-detail">
+    <strong>今条 いの(こんじょう - )</strong><br>
+    <b>身長：</b>143cm<br>
+　<b>誕生日：</b>8月8日<br>
+　獣人と人間のハーフで、猫に変身できる少女。環と同じクラスになる。貧乏のため、猫の姿で人間に餌を貰っていた。人間の姿でもたまに素(猫)がでることも。
+  </div>
+
+  <div id="haru" class="character-detail">
+  <strong>千歳 陽（ちとせ はる）</strong><br>
+  <b>身長：</b>162cm<br>
+  <b>誕生日：</b>3月20日<br>
+  環のクラスメイト。勉強が好きで学年1位。
+</div>
+
+<div id="shou" class="character-detail">
+  <strong>廿山 咲（つづやま しょう）</strong><br>
+  <b>身長：</b>174cm<br>
+  <b>誕生日：</b>4月27日<br>
+  陽の友人。環らの隣のクラス(1年生時)。陽とは部活が同じ。
+</div>
+
+<div id="aki" class="character-detail">
+  <strong>千歳 光（ちとせ あき）</strong><br>
+  <b>身長：</b>180cm<br>
+  <b>誕生日：</b>9月23日<br>
+  陽の兄。高校3年生。地学部の副部長。なんでもそつなくこなせて、モテる。
+</div>
+
+<div id="azusa" class="character-detail">
+  <strong>十亀 梓(そがめ あずさ）</strong><br>
+  <b>身長：</b>170cm<br>
+  <b>誕生日：</b>5月23日<br>
+  地学部部長。高校3年生。あずみの兄で、光の(自称)親友。ムードメーカー。
+</div>
+
+<div id="azumi" class="character-detail">
+  <strong>十亀 あずみ（そがめ - ）</strong><br>
+  <b>身長：</b>150cm<br>
+  梓の妹。高校2年生。地学部所属だが、生物部に彼氏がいるためそちらによく行く。
+</div>
+
+<div id="kai" class="character-detail">
+  <strong>海星 海（うみほし かい）</strong><br>
+  <b>身長：</b>168cm<br>
+  生物部部長。高校2年生。あずみの彼氏。常に白衣を着ている。部で飼っているハムスターのハム次郎を肩などに乗せている。海星なのであだ名はヒトデ。
+</div>
+
+<div id="hyouta" class="character-detail">
+  <strong>二宮 氷太（にのみや ひょうた）</strong><br>
+  新一年生。生物部に入部する。家で日本スピッツを飼っているらしい。当初は身長が低かったが…？
+</div>
+
+<div id="kasumi" class="character-detail">
+  <strong>六月一日 霞（うりはり かすみ）</strong><br>
+  <b>身長：</b>178cm<br>
+  地学部。高校2年生。小さい子が好きだが、さすがに危ないことはしない(たぶん)。あずみに告白してフラれている。ウリと付くのであだ名はウリ坊。
+</div>
+
+<div id="komamoto" class="character-detail">
+  <strong>狛本（こまもと）</strong><br>
+  高校1年生。転びそうになったところを環に助けられ、一目惚れする。数学が大の得意。
+</div>
+
+<div id="onikuma" class="character-detail">
+  <strong>鬼熊（おにくま）</strong><br>
+  環らが進級して同じクラスになった女子。学年2位らしい。背が高く、背の低い女子を可愛がる傾向にある。
+</div>
+
+<div id="hamuzirou" class="character-detail">
+  <strong>ハム次郎</strong><br>
+  生物部で飼っているハムスター。海星が入部したときに先輩が買ってくれたらしい。
+</div>
+
+<div id="saotome" class="character-detail">
+  <strong>五月女</strong><br>
+  咲の担任で、地学部の顧問。ちなみにこの高校での担当教科は地学と物理。
+</div>
+
+  <script>
+    function showDetail(id) {
+      document.querySelectorAll('.character-detail').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+
+    <div style="text-align:center; margin-top: 40px;">
+  <a href="https://nekosmell.github.io/works/nekogirl.html">← 猫少女トップページに戻る</a>
+</div>
+
+</body>
+</html>
