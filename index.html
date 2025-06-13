@@ -18,15 +18,21 @@
       text-decoration: underline;
     }
 
-      @keyframes blink {
+   .rainbow-text {
+  font-size: 36px;
+  font-weight: bold;
+  background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
-
-.blinking-text {
-  animation: blink 1s infinite;
-}
-</head>
     
   </style>
 
@@ -45,7 +51,4 @@
 
 <p><a href="works/index.html">→ 一次創作作品一覧を見る</a></p>
 
-  <h1 class="blinking-text" style="font-size: 36px; background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet); -webkit-background-clip: text; color: transparent;">
-ようこそ！
-</h1>
-
+  <h1 class="rainbow-text">ようこそ！</h1>
