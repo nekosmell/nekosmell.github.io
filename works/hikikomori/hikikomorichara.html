@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>引きこもりと妖精の話 | キャラ紹介</title>
+  <style>
+    body {
+      background-color: #f0f5f2;
+      font-family: sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    h1, h2 {
+      text-align: center;
+    }
+
+    .section-title {
+      margin-top: 40px;
+      font-size: 1.4em;
+      border-bottom: 2px solid #bbb;
+      padding-bottom: 5px;
+    }
+
+    .character-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 20px auto;
+      max-width: 900px;
+    }
+
+    .character {
+      text-align: center;
+      width: 120px;
+      cursor: pointer;
+    }
+
+    .icon {
+      font-size: 48px;
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      border: 2px solid #999;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+    }
+
+    .name {
+      font-weight: bold;
+    }
+
+    .furigana {
+      font-size: 0.6em;
+      color: #666;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .character-detail {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin: 20px auto;
+      max-width: 500px;
+      display: none;
+    }
+
+    .character-detail.active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>引きこもりと妖精の話 | キャラ紹介</h1>
+  <p style="text-align:center;">※アイコンをタップすると詳細が表示されます（ネタバレあり）</p>
+
+  <h2 class="section-title">〜メインキャラ〜</h2>
+  <div class="character-grid">
+    <div class="character" onclick="showDetail('haru')">
+      <div class="icon">🌸</div>
+      <div class="name"><span class="furigana">ちとせ　はる</span>千歳 陽</div>
+    </div>
+    <div class="character" onclick="showDetail('fia')">
+      <div class="icon">🧚</div>
+      <div class="name">フィア</div>
+    </div>
+    <div class="character" onclick="showDetail('aki')">
+      <div class="icon">🌞</div>
+      <div class="name"><span class="furigana">ちとせ　あき</span>千歳 光</div>
+    </div>
+    <div class="character" onclick="showDetail('mutsuki')">
+      <div class="icon">🎀</div>
+      <div class="name"><span class="furigana">いちのせ　むつき</span>一之瀬 睦月</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">〜サブキャラ〜</h2>
+  <div class="character-grid">
+    <div class="character" onclick="showDetail('shou')">
+      <div class="icon">📚</div>
+      <div class="name"><span class="furigana">つづやま　しょう</span>廿山 咲</div>
+    </div>
+    <div class="character" onclick="showDetail('churi')">
+      <div class="icon">🧹</div>
+      <div class="name">チュリ</div>
+    </div>
+    <div class="character" onclick="showDetail('hotaru')">
+      <div class="icon">🌙</div>
+      <div class="name"><span class="furigana">もちづき　ほたる</span>十五夜 蛍</div>
+    </div>
+    <div class="character" onclick="showDetail('yayoi')">
+      <div class="icon">🌼</div>
+      <div class="name"><span class="furigana">ももえ　やよい</span>百枝 弥生</div>
+    </div>
+    <div class="character" onclick="showDetail('tsai')">
+      <div class="icon">🕴️</div>
+      <div class="name">ツァイ</div>
+    </div>
+  </div>
+
+  <h2 class="section-title">〜サブサブキャラ〜</h2>
+  <div class="character-grid">
+    <div class="character" onclick="showDetail('hyouta')">
+      <div class="icon">🐶</div>
+      <div class="name"><span class="furigana">にのみや　ひょうた</span>二宮 氷太</div>
+    </div>
+    <div class="character" onclick="showDetail('tamaki')">
+      <div class="icon">🎮</div>
+      <div class="name"><span class="furigana">たかもり　たまき</span>鷹守 環</div>
+    </div>
+    <div class="character" onclick="showDetail('rid')">
+      <div class="icon">🧢</div>
+      <div class="name">リッド</div>
+    </div>
+    <div class="character" onclick="showDetail('kyasu')">
+      <div class="icon">💔</div>
+      <div class="name">キャス</div>
+    </div>
+    <div class="character" onclick="showDetail('natsuki')">
+      <div class="icon">📦</div>
+      <div class="name"><span class="furigana">ちとせ　なつき</span>千歳 夏樹</div>
+    </div>
+    <div class="character" onclick="showDetail('hinata')">
+      <div class="icon">👒</div>
+      <div class="name"><span class="furigana">ちとせ　-</span>千歳 ひなた</div>
+    </div>
+    <div class="character" onclick="showDetail('mino')">
+      <div class="icon">🖋️</div>
+      <div class="name">三野</div>
+    </div>
+    <div class="character" onclick="showDetail('shii')">
+      <div class="icon">📘</div>
+      <div class="name">廿山 しい</div>
+    </div>
+    <div class="character" onclick="showDetail('saotome')">
+      <div class="icon">👓</div>
+      <div class="name">五月女</div>
+    </div>
+  </div>
+
+  <!-- 詳細表示（仮） -->
+  <div id="haru" class="character-detail active">
+    <strong>千歳 陽（ちとせ はる）</strong><br>
+    <b>身長：</b>162cm<br>
+    <b>誕生日：</b>3月20日<br>
+    引きこもりの青年。20歳。現実逃避でゲームをしている。甘党。
+  </div>
+
+  <div id="fia" class="character-detail">
+    <strong>フィア</strong><br>
+    <b>身長：</b>160cm（アホ毛除く）<br>
+    陽と契約した妖精。感情抑制の能力を持つ。人間界のゲーム好き。
+  </div>
+
+  <!-- 他の詳細はあとで追記可 -->
+
+  <script>
+    function showDetail(id) {
+      document.querySelectorAll('.character-detail').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
