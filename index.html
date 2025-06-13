@@ -33,6 +33,22 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.3; }
 }
+    .color-cycle {
+  font-size: 36px;
+  font-weight: bold;
+  animation: colorChange 1s infinite;
+}
+
+@keyframes colorChange {
+  0%   { color: red; }
+  14%  { color: orange; }
+  28%  { color: yellow; }
+  42%  { color: green; }
+  57%  { color: blue; }
+  71%  { color: indigo; }
+  85%  { color: violet; }
+  100% { color: red; }
+}
     
   </style>
 
@@ -40,6 +56,8 @@
   <h1>一次創作作品置き場</h1>
   <p>誰かの一次創作作品置き場です。</p>
   <p>※ここに置いてある作品は全てフィクションです。実在の人物などとは関係ありません。</p>
+
+  <h1 class="color-cycle">ようこそ！</h1>
 
   <p>
     🔗 <a href="http://www.pixiv.net/users/12395917" target="_blank">pixiv</a>　
